@@ -1,0 +1,48 @@
+const config = {
+  type: Phaser.AUTO,    // Rendering type: Phaser.AUTO, Phaser.CANVAS, or Phaser.WEBGL
+  width: 800,           // Width of the game canvas
+  height: 600,          // Height of the game canvas
+  backgroundColor: '#2d2d2d',  // Background color of the canvas
+  parent: 'game-container',   // ID of the HTML element to append the canvas to
+  physics: {
+      default: 'arcade',     // Physics engine to use
+      arcade: {
+          gravity: { y: 300 },   // Gravity settings (y: 300 for downward gravity)
+          debug: false            // Enable/disable debug mode
+      }
+  },
+  scene: {
+      preload: preload,
+      create: create,
+      update: update
+  }
+};
+
+// Create a new Phaser game instance with the above configuration
+const game = new Phaser.Game(config);
+
+function preload() {
+  // Load game assets here (e.g., images, sounds)
+  this.load.image('sky', 'assets/sky.png');
+  this.load.image('logo', 'assets/logo.png');
+}
+
+function create() {
+  // Add assets to the game (e.g., background, sprites)
+  this.add.image(400, 300, 'sky');
+  const logo = this.add.image(400, 150, 'logo');
+
+  // Make the logo move using tweening
+  this.tweens.add({
+      targets: logo,
+      y: 450,
+      duration: 2000,
+      ease: 'Power2',
+      yoyo: true,
+      loop: -1
+  });
+}
+
+function update() {
+  // Game loop logic goes here
+}
